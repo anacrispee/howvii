@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://anacrispee:Jesus!&@localhost:3306/how-vii"
+}
+
+model imovel {
+  idImovel        Int     @id @default(autoincrement())
+  tipoImovel      String  @db.VarChar(45)
+  descricaoImovel String? @db.VarChar(45)
+  valorImovel     Float   @db.Float
+  venda           venda[]
+}
+
+model pagamento {
+  idPagamento    Int      @id @default(autoincrement())
+  dataPagamento  DateTime @db.Date
+  valorPagamento Float    @db.Float
+  idVenda        Int
+  venda          venda    @relation(fields: [idVenda], references: [idVenda], onDelete: NoAction, onUpdate: NoAction, map: "pagamento_ibfk_1")
+
+  @@index([idVenda], map: "idVenda")
+}
+
+model venda {
+  idVenda        Int         @id @default(autoincrement())
+  dataVenda      DateTime    @db.Date
+  valorPagamento Float       @db.Float
+  idImovel       Int
+  pagamento      pagamento[]
+  imovel         imovel      @relation(fields: [idImovel], references: [idImovel], onDelete: NoAction, onUpdate: NoAction, map: "venda_ibfk_1")
+
+  @@index([idImovel], map: "idImovel")
+}
