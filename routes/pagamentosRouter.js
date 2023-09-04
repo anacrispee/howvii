@@ -10,7 +10,7 @@ router.get('/', pagamentosControllerController.listaPagamentos);
 
 router.post('/', pagamentosController.criaPagamento);
 
-router.put('/:putIdPagamento', pagamentosController.atualizaIPagamento);
+router.put('/:putIdVenda', pagamentosController.atualizaIPagamento);
 
 router.delete('/:deleteIdPagamento', pagamentosController.deletaPagamento);
 
