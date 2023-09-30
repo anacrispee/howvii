@@ -1,6 +1,7 @@
 const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient;
-const pagamentosController = require('../controller/pagamentosController');
+const vendasController = require('../controller/vendasController');
+const imoveisController = require('../controller/imoveisController');
 
 async function listaPagamentos(req, res) {
     try{

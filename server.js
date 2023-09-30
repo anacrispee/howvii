@@ -10,4 +10,3 @@ app.use(express.json());
 app.use('/imoveis', require('./routes/imoveisRouter'));
 app.use('/vendas', require('./routes/vendasRouter'));
 app.use('/pagamentos', require('./routes/pagamentosRouter'));
-app.use(express.static('./view'));

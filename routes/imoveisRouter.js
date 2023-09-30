@@ -1,8 +1,9 @@
 const express = require('express');
-const router = require.Router();
-const {PrismaCliente} = require('@prisma/client');
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const imoveisController = require('..imoveisController/controller/');
+const { Router } = require('express');
+const router = express.Router();
+const imoveisController = require('../controller/imoveisController');
 const vendasController = require('../controller/vendasController');
 const pagamentosController = require('../controller/pagamentosController');
 

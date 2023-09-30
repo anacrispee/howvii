@@ -1,6 +1,7 @@
 const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient;
-const imoveisController = require('../controller/imoveisController');
+const vendasController = require('../controller/vendasController');
+const pagamentosController = require('../controller/pagamentosController');
 
 async function listaImoveis(req, res) {
     try{
@@ -10,6 +11,28 @@ async function listaImoveis(req, res) {
         return res.status(404).json({message: "Erro ao listar imóveis!"});
     }
 };
+
+async function listaImoveisSomaPagamentos(req, res) {
+    try{
+        const imoveis = await prisma.imovel.findMany();
+        const pagamentos = await prisma.pagamentos.findMany();
+
+        const somaPagamentosPorImovel = {};
+        pagamentos.forEach((pagamento) => {
+            const idImovel = pagamento.idImovel;
+            const valorPagamento = pagamento.valorPagamento;
+
+            if (somaPagamentosPorImovel[idImovel]) {
+                somaPagamentosPorImovel[idImovel] += valorPagamento;
+            } else {
+                somaPagamentosPorImovel[idImovel] = valorPagamento;
+            }
+        })
+        return res.status(200).json(somaPagamentosPorImovel);
+    }catch(error) {
+        return res.status(404).json({message: "Erro ao listar imóveis e soma de pagamentos"});
+    }
+}
 
 async function criaImovel (req, res) {
     const {postTipoImovel} = req.body;
@@ -69,6 +92,7 @@ async function deletaImovel (req, res) {
 
 module.exports = {
     listaImoveis,
+    listaImoveisSomaPagamentos,
     criaImovel,
     atualizaImovel,
     deletaImovel,
