@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const {PrismaClient} = require('PrismaClient');
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 app.use(express.json());
